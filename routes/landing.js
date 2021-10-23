@@ -3,7 +3,14 @@ const router = express.Router();
 
 router.get('/', (req,res)=>{
     res.render("landing/welcome");
+    // res.render("products/index");
 })
+// router.get('/products', (req,res)=>{
+//     // res.render("landing/welcome");
+//     res.render("products/index");
+// })
+
+
 
 router.get('/about-us', (req,res)=>{
     res.send("landing/about-us")

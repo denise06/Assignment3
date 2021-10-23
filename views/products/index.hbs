@@ -1,0 +1,26 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<h1>MINIME listings</h1> 
+<a class="btn btn-primary" href="/products/create">Create New</a>
+
+{{#each products}}
+    <div class = "card" style = "width: 18rem;">
+        <div class = "card-header">
+            {{this.name}}
+        </div>
+        <div class="card-body">
+            {{!-- <p class = "card-text"> {{this.id}}</p> --}}
+            {{!-- <p class = "card-text">{{this.name}}</p> --}}
+            <p class = "card-text"> Price: {{this.cost}}</p>
+            <p class = "card-text"> Description: {{this.description}}</p>
+            <p class = "card-text"> Brand: {{this.brand}}</p>
+            <a class="btn btn-primary btn-sm" href="/products/{{this.id}}/update">Update</a>
+        </div>
+    </div>
+{{/each}}
+
+{{/block}}
+
+{{/extends}}
+
