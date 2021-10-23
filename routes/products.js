@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // #1 import in the Product model
-const { Product} = require('../models')
+const { Product, Category} = require('../models')
 
 // import in  Forms
 const { bootstrapField, createProductForm } = require('../forms');
@@ -11,7 +11,9 @@ const { bootstrapField, createProductForm } = require('../forms');
 
 router.get('/', async (req,res)=>{
     // #2 - fetch all the products (ie, SELECT * from products)
-    let products = await Product.collection().fetch();
+    let products = await Product.collection().fetch({
+        withRelated:['category']
+    });
     res.render('products/index', {
         'products': products.toJSON() // #3 - convert collection to JSON
     })
@@ -19,7 +21,12 @@ router.get('/', async (req,res)=>{
 
 // Create new listing in Minime
 router.get('/create', async (req, res) => {
-    const productForm = createProductForm();
+    // retrieve all available categories
+    const allCategories = await Category.fetchAll().map(function(category){
+        return [ category.get('id'), category.get('name')]
+    })
+
+    const productForm = createProductForm(allCategories);
     res.render('products/create',{
         'form': productForm.toHTML(bootstrapField)
     })
@@ -27,7 +34,11 @@ router.get('/create', async (req, res) => {
 
 //process submitted create product listing form
 router.post('/create', async(req,res)=>{
-    const productForm = createProductForm();
+    const allCategories = await Category.fetchAll().map(function(category){
+        return [ category.get('id'), category.get('name')]
+    })
+
+    const productForm = createProductForm(allCategories);
     productForm.handle(req, {
         'success': async (form) => {
             const product = new Product();
@@ -37,7 +48,10 @@ router.post('/create', async(req,res)=>{
             product.set('ageGroup', form.data.ageGroup);
             product.set('brand', form.data.brand);
             product.set('condition', form.data.condition);
+            product.set('category_id', form.data.category_id);
+
             await product.save();
+            // req.flash("success_messages", "New product has been created successfully.");
             res.redirect('/products');
         },
         'empty': function(req){
@@ -57,13 +71,18 @@ router.post('/create', async(req,res)=>{
 router.get('/:product_id/update', async (req, res) => {
     // retrieve the product
     const productId = req.params.product_id
+    // retrieve all categories
+    const allCategories = await Category.fetchAll().map(function(category){
+        return [ category.get('id'), category.get('name')]
+    })
+
     const product = await Product.where({
         'id': productId
     }).fetch({
         require: true
     });
 
-    const productForm = createProductForm();
+    const productForm = createProductForm(allCategories);
 
 
     productForm.fields.name.value = product.get('name');
@@ -72,6 +91,7 @@ router.get('/:product_id/update', async (req, res) => {
     productForm.fields.ageGroup.value = product.get('ageGroup');
     productForm.fields.brand.value = product.get('brand');
     productForm.fields.condition.value = product.get('condition');
+    productForm.fields.category_id.value = product.get('category_id');
 
     res.render('products/update', {
         'form': productForm.toHTML(bootstrapField),
@@ -89,9 +109,13 @@ router.post('/:product_id/update', async (req, res) => {
     }).fetch({
         require: true
     });
+    // fetch all the categories
+    const allCategories = await Category.fetchAll().map(function(category){
+        return [ category.get('id'), category.get('name')]
+    })
 
     // process the form
-    const productForm = createProductForm();
+    const productForm = createProductForm(allCategories);
     productForm.handle(req, {
         'success': async (form) => {
             product.set(form.data);
