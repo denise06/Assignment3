@@ -105,8 +105,33 @@ router.post('/:product_id/update', async (req, res) => {
             })
         }
     })
-
 })
+
+// Deleting a product listing
+// fetch product that we are deleting
+router.get('/:product_id/delete', async(req,res)=>{
+    const product = await Product.where({
+        'id': req.params.product_id
+    }).fetch({
+        require: true
+    });
+
+    res.render('products/delete', {
+        'product': product.toJSON()
+    })
+});
+
+// process the delete via destroy
+router.post('/:product_id/delete', async(req,res)=>{
+    const product = await Product.where({
+        'id': req.params.product_id
+    }).fetch({
+        require: true
+    });
+    await product.destroy();
+    res.redirect('/products')
+})
+
 
 
 module.exports = router;
