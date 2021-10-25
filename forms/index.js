@@ -89,6 +89,9 @@ const createProductForm = (categories,tags) => {
             },
             widget: widgets.multipleSelect(),
             choices:tags
+        }),
+        'image_url':fields.string({
+            widget: widgets.hidden()
         })
     })
 };
@@ -139,6 +142,38 @@ const createLoginForm = () => {
     })
 }
 
+// search engine
+const createSearchForm = function (categories, tags) {
+    return forms.create({
+        "name": fields.string({
+            required: false,
+            errorAfterField: true,
+        }),
+        "min_cost": fields.string({
+            required: false,
+            errorAfterField: true,
+            validators: [validators.integer(), validators.min(0)]
+        }),
+        "max_cost": fields.string({
+            required: false,
+            errorAfterField: true,
+            validators: [validators.integer(), validators.min(0)]
+        }),       
+        "category_id": fields.string({
+            label: 'Category',
+            required: false,
+            errorAfterField: true,
+            widget: widgets.select(), // indicate we want a <select></select> to fill in the field
+            choices: categories
+        }),
+        "tags": fields.string({
+            required: false,
+            erorrAfterField: true,
+            widget: widgets.multipleSelect(),
+            choices: tags
+        })      
+    })
+}
 
-module.exports = { createProductForm, createRegistrationForm, createLoginForm,bootstrapField, };
+module.exports = { createProductForm, createRegistrationForm, createLoginForm, createSearchForm ,bootstrapField, };
 

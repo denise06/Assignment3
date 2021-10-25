@@ -22,18 +22,16 @@ router.get('/create', checkIfAuthenticated, async (req, res) => {
     const allCategories = await Category.fetchAll().map(function(category){
         return [ category.get('id'), category.get('name')]
     })
-    
     // retrieve all tags
     const allTags = await Tag.fetchAll().map( tag => [tag.get('id'), tag.get('name')]);
-    
     const productForm = createProductForm(allCategories, allTags);
 
-    res.render('products/create',{
-        'form': productForm.toHTML(bootstrapField)
+    res.render('products/create', {
+        'form': productForm.toHTML(bootstrapField),
+        'cloudinaryName': process.env.CLOUDINARY_NAME,
+        'cloudinaryApiKey': process.env.CLOUDINARY_API_KEY,
+        'cloudinaryPreset': process.env.CLOUDINARY_UPLOAD_PRESET
     })
-
-    
-
 })
 
 //process submitted create product listing form
@@ -59,7 +57,8 @@ router.post('/create',checkIfAuthenticated ,async(req,res)=>{
             product.set('brand', form.data.brand);
             product.set('condition', form.data.condition);
             product.set('category_id', form.data.category_id);
-            
+            product.set('image_url', form.data.image_url);
+
             
             await product.save();
 
@@ -114,6 +113,7 @@ router.get('/:product_id/update', async (req, res) => {
     productForm.fields.condition.value = product.get('condition');
     productForm.fields.category_id.value = product.get('category_id');
     productForm.fields.tags.value = product.get('tags');
+    productForm.fields.image_url.value = product.get('image_url');
 
     //multi select for tags
     let selectedTags = await product.related('tags').pluck('id');
@@ -121,7 +121,12 @@ router.get('/:product_id/update', async (req, res) => {
 
     res.render('products/update', {
         'form': productForm.toHTML(bootstrapField),
-        'product': product.toJSON()
+        'product': product.toJSON(),
+        // cloudinary info
+        cloudinaryName: process.env.CLOUDINARY_NAME,
+        cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+        cloudinaryPreset: process.env.CLOUDINARY_UPLOAD_PRESET
+
     })
 
 })
