@@ -1,13 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const { bootstrapField, createProductForm } = require('../forms');
+const { checkIfAuthenticated } = require('../middlewares');
 
 // #1 import in the Product, category and tag model
 const { Product, Category, Tag} = require('../models')
-
-// import in  Forms
-const { bootstrapField, createProductForm } = require('../forms');
-
-
 
 router.get('/', async (req,res)=>{
     // #2 - fetch all the products (ie, SELECT * from products)
@@ -20,7 +17,7 @@ router.get('/', async (req,res)=>{
 })
 
 // Create new listing in Minime
-router.get('/create', async (req, res) => {
+router.get('/create', checkIfAuthenticated, async (req, res) => {
     // retrieve all available categories
     const allCategories = await Category.fetchAll().map(function(category){
         return [ category.get('id'), category.get('name')]
@@ -40,7 +37,7 @@ router.get('/create', async (req, res) => {
 })
 
 //process submitted create product listing form
-router.post('/create', async(req,res)=>{
+router.post('/create',checkIfAuthenticated ,async(req,res)=>{
     const allCategories = await Category.fetchAll().map(function(category){
         return [ category.get('id'), category.get('name')]
     })

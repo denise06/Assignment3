@@ -4,10 +4,12 @@
 <h1>Deleting {{product.name}}</h1>
 <form method="POST">
     <div class="alert alert-danger">
-        Are you sure you want to delete {{product.name}}?
+        <p>Are you sure you want to delete {{product.name}}?</p>
     </div>
-    <input type="submit" class="btn btn-danger" value="OK"/>
-    <a href-"/products" class="btn btn-success">Cancel</a>
+    <div>
+        <input type="submit" class="btn btn-danger" value="Yes"/>
+        <a href="/products" class="btn btn-success">Cancel</a>
+    </div>
 </form>
 {{/block}}
 
