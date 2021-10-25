@@ -26,7 +26,7 @@ var bootstrapField = function (name, object) {
 };
 
 
-const createProductForm = (categories) => {
+const createProductForm = (categories,tags) => {
     return forms.create({
         'name': fields.string({
             required: true,
@@ -80,8 +80,16 @@ const createProductForm = (categories) => {
             },
             widget: widgets.select(),
             choices: categories
+        }),
+        'tags': fields.string({
+            required: true,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            },
+            widget: widgets.multipleSelect(),
+            choices:tags
         })
-
     })
 };
 
@@ -89,5 +97,5 @@ const createProductForm = (categories) => {
 
 
 
-module.exports = { createProductForm, bootstrapField };
+module.exports = { createProductForm, bootstrapField, };
 

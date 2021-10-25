@@ -3,6 +3,16 @@ const hbs = require("hbs");
 const wax = require("wax-on");
 require("dotenv").config();
 
+// flash messages 
+const session = require('express-session');
+const flash = require('connect-flash');
+
+// setup wax-on
+wax.on(hbs.handlebars);
+wax.setLayoutPath("./views/layouts");
+
+
+
 // create an instance of express app
 let app = express();
 
@@ -12,9 +22,7 @@ app.set("view engine", "hbs");
 // static folder
 app.use(express.static("public"));
 
-// setup wax-on
-wax.on(hbs.handlebars);
-wax.setLayoutPath("./views/layouts");
+
 
 // enable forms
 app.use(
@@ -22,6 +30,23 @@ app.use(
     extended: false
   })
 );
+
+// set up sessions
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
+// set up flash
+app.use(flash())
+
+app.use(function (req, res, next) {
+  res.locals.success_messages = req.flash("success_messages");
+  res.locals.error_messages = req.flash("error_messages");
+  next();
+});
+
 // define landing routes
 const landingRoutes = require('./routes/landing')
 const productRoutes = require('./routes/products')
@@ -31,6 +56,8 @@ async function main() {
    app.use('/', landingRoutes);
    app.use ('/products', productRoutes);
 }
+
+
 
 main();
 
