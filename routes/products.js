@@ -197,6 +197,44 @@ router.post('/:product_id/delete', async(req,res)=>{
     res.redirect('/products')
 })
 
+// View each product details
+router.get('/:product_id/details', async (req, res) => {
+    
+    // retrieve all categories
+    const allCategories = await Category.fetchAll().map(function(category){
+        return [ category.get('id'), category.get('name')]
+    })
+    // retrieve all tags
+    const allTags = await Tag.fetchAll().map( tag => [tag.get('id'), tag.get('name')]);
+    
+    // retrieve the product
+    const productId = req.params.product_id
+    
+    const product = await Product.where({
+        'id': productId
+    }).fetch({
+        require: true,
+        withRelated:['tags']
+
+    });
+
+    product.get('name');
+    product.get('cost');
+    product.get('description');
+    product.get('ageGroup');
+    product.get('brand');
+    product.get('condition');
+    product.get('category_id');
+    product.get('tags');
+
+    //multi select for tags
+    let selectedTags = await product.related('tags').pluck('id');
+    
+    
+    
+    // res.redirect('/products')
+    res.render('products/details')
+})
 
 
 module.exports = router;
