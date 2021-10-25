@@ -27,8 +27,11 @@ const Tag = bookshelf.model('Tag',{
     }
 })
 
-
+// user DB
+const User = bookshelf.model('User',{
+    tableName: 'users'
+})
 
 // export out the model
-module.exports = { Product, Category, Tag};
+module.exports = { Product, Category, Tag, User};
 

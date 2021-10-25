@@ -93,9 +93,52 @@ const createProductForm = (categories,tags) => {
     })
 };
 
+// User registration
+
+const createRegistrationForm = () => {
+    return forms.create({
+        'username': fields.string({
+            'required': true,
+            'errorAfterField': true,
+        }),
+        'email': fields.string({
+            'required': true,
+            'errorAfterField': true
+        }),
+        'password': fields.string({
+            'required': true,
+            'errorAfterField': true,
+            'widget': widgets.password()
+        }),
+        'confirm_password': fields.string({
+            'required': true,
+            'errorAfterField': true,
+            'widget': widgets.password(),
+            'validators': [validators.matchField('password')]
+        })
+    })
+}
+
+// login form
+const createLoginForm = () => {
+    return forms.create({
+        'email': fields.string({
+            required: true,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            }
+        }),
+        'password': fields.password({
+            required: true,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            }
+        }),
+    })
+}
 
 
-
-
-module.exports = { createProductForm, bootstrapField, };
+module.exports = { createProductForm, createRegistrationForm, createLoginForm,bootstrapField, };
 
