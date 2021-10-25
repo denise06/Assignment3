@@ -1,18 +1,80 @@
 const express = require("express");
 const router = express.Router();
-const { bootstrapField, createProductForm } = require('../forms');
+const { bootstrapField, createProductForm,createSearchForm } = require('../forms');
 const { checkIfAuthenticated } = require('../middlewares');
 
 // #1 import in the Product, category and tag model
 const { Product, Category, Tag} = require('../models')
 
-router.get('/', async (req,res)=>{
-    // #2 - fetch all the products (ie, SELECT * from products)
-    let products = await Product.collection().fetch({
-        withRelated:['category','tags']
-    });
-    res.render('products/index', {
-        'products': products.toJSON() // #3 - convert collection to JSON
+// Get all products, including search engine
+router.get('/', async function (req, res) {
+    // retrieve an array of all available categories
+    const allCategories = await Category.fetchAll().map(function (category) {
+        return [category.get('id'), category.get('name')]
+    })
+
+    // create a fake category that represents search all
+    allCategories.unshift([0, '----'])
+
+    // retrieve an array of all the tags
+    const allTags = await Tag.fetchAll().map(tag => [tag.get('id'), tag.get('name')]);
+
+
+    let searchForm = createSearchForm(allCategories, allTags);
+
+    // create a base query object which is deferred this is the eqv. of "select * from products"
+    let q = Product.collection();  
+   
+    searchForm.handle(req,{
+        'success': async function(form) {
+            if (form.data.name) {
+                q.where('name', 'like', '%' + form.data.name + '%')
+            }
+
+            if (form.data.min_cost) {
+                q.where('cost', '>=', form.data.min_cost);
+            }
+
+            if (form.data.max_cost) {
+                q.where('cost', '<=', form.data.max_cost);
+            }
+
+            if (form.data.category_id && form.data.category_id != "0") {
+                q.where('category_id', '=', form.data.category_id)
+            }
+
+            if (form.data.tags) {
+                q.query('join', 'products_tags', 'products.id', 'product_id')
+                .where('tag_id', 'in', form.data.tags.split(','))
+            }
+
+            let products = await q.fetch({
+                withRelated:['category', 'tags']
+            })
+
+            res.render('products/index',{
+                'form': form.toHTML(bootstrapField),
+                'products': products.toJSON()
+            })
+        },
+        'error': async function() {
+            let products = await q.fetch({
+                withRelated:['category', 'tags']
+            });
+            res.render('products/index',{
+                'products': products.toJSON(),
+                'form': form.toHTML(bootstrapField)
+            })
+        },
+        'empty': async function(form) {
+            let products = await q.fetch({
+                withRelated:['category', 'tags']
+            });
+            res.render('products/index',{
+                'products': products.toJSON(),
+                'form': form.toHTML(bootstrapField)
+            })
+        }
     })
 })
 
