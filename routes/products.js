@@ -2,27 +2,24 @@ const express = require("express");
 const router = express.Router();
 const { bootstrapField, createProductForm,createSearchForm } = require('../forms');
 const { checkIfAuthenticated } = require('../middlewares');
+const dataLayer = require('../dal/product')
 
 // #1 import in the Product, category and tag model
 const { Product, Category, Tag} = require('../models')
 
-// Get all products, including search engine
+// Get all products, include filtering through search engine
 router.get('/', async function (req, res) {
+    
     // retrieve an array of all available categories
-    const allCategories = await Category.fetchAll().map(function (category) {
-        return [category.get('id'), category.get('name')]
-    })
+    const allCategories =  await dataLayer.getAllCategories();
 
     // create a fake category that represents search all
     allCategories.unshift([0, '----'])
 
     // retrieve an array of all the tags
-    const allTags = await Tag.fetchAll().map(tag => [tag.get('id'), tag.get('name')]);
-
+    const allTags = await dataLayer.getAllTags();
 
     let searchForm = createSearchForm(allCategories, allTags);
-
-    // create a base query object which is deferred this is the eqv. of "select * from products"
     let q = Product.collection();  
    
     searchForm.handle(req,{
@@ -81,11 +78,10 @@ router.get('/', async function (req, res) {
 // Create new listing in Minime
 router.get('/create', checkIfAuthenticated, async (req, res) => {
     // retrieve all available categories
-    const allCategories = await Category.fetchAll().map(function(category){
-        return [ category.get('id'), category.get('name')]
-    })
+    const allCategories =  await dataLayer.getAllCategories();
+
     // retrieve all tags
-    const allTags = await Tag.fetchAll().map( tag => [tag.get('id'), tag.get('name')]);
+    const allTags = await dataLayer.getAllTags();
     const productForm = createProductForm(allCategories, allTags);
 
     res.render('products/create', {
@@ -98,14 +94,10 @@ router.get('/create', checkIfAuthenticated, async (req, res) => {
 
 //process submitted create product listing form
 router.post('/create',checkIfAuthenticated ,async(req,res)=>{
-    const allCategories = await Category.fetchAll().map(function(category){
-        return [ category.get('id'), category.get('name')]
-    })
+    const allCategories = await dataLayer.getAllCategories();
 
     // retrieve all tags
-    const allTags = await (await Tag.fetchAll()).map(function(tag){
-        return [ tag.get('id'), tag.get('name')]
-    })
+    const allTags = await dataLayer.getAllTags();
 
     const productForm = createProductForm(allCategories,allTags);
 
@@ -148,22 +140,15 @@ router.post('/create',checkIfAuthenticated ,async(req,res)=>{
 router.get('/:product_id/update', async (req, res) => {
     
     // retrieve all categories
-    const allCategories = await Category.fetchAll().map(function(category){
-        return [ category.get('id'), category.get('name')]
-    })
+    const allCategories =  await dataLayer.getAllCategories();
+
     // retrieve all tags
-    const allTags = await Tag.fetchAll().map( tag => [tag.get('id'), tag.get('name')]);
+    const allTags = await dataLayer.getAllTags();
     
     // retrieve the product
     const productId = req.params.product_id
     
-    const product = await Product.where({
-        'id': productId
-    }).fetch({
-        require: true,
-        withRelated:['tags']
-
-    });
+    const product = dataLayer.getProductByID(productId);
 
     const productForm = createProductForm(allCategories, allTags);
 
@@ -197,15 +182,10 @@ router.get('/:product_id/update', async (req, res) => {
 router.post('/:product_id/update', async (req, res) => {
 
     // fetch the product that we want to update
-    const product = await Product.where({
-        'id': req.params.product_id
-    }).fetch({
-        require: true
-    });
+    const product = dataLayer.getProductByID(productId);
+    
     // fetch all the categories
-    const allCategories = await Category.fetchAll().map(function(category){
-        return [ category.get('id'), category.get('name')]
-    })
+    const allCategories = await dataLayer.getAllCategories();
 
     // process the form
     const productForm = createProductForm(allCategories);
@@ -268,39 +248,46 @@ router.post('/:product_id/delete', async(req,res)=>{
 router.get('/:product_id/details', async (req, res) => {
     
     // retrieve all categories
-    const allCategories = await Category.fetchAll().map(function(category){
-        return [ category.get('id'), category.get('name')]
-    })
+    const allCategories =  await dataLayer.getAllCategories();
     // retrieve all tags
-    const allTags = await Tag.fetchAll().map( tag => [tag.get('id'), tag.get('name')]);
+    const allTags = await dataLayer.getAllTags();
     
     // retrieve the product
     const productId = req.params.product_id
     
-    const product = await Product.where({
-        'id': productId
-    }).fetch({
-        require: true,
-        withRelated:['tags']
+    const product = await dataLayer.getProductByID(productId);
 
-    });
+    const productDetail = createProductForm(allCategories, allTags);
 
-    product.get('name');
-    product.get('cost');
-    product.get('description');
-    product.get('ageGroup');
-    product.get('brand');
-    product.get('condition');
-    product.get('category_id');
-    product.get('tags');
+    productDetail.fields.name.value = product.get('name');
+    productDetail.fields.cost.value = product.get('cost');
+    productDetail.fields.description.value = product.get('description');
+    productDetail.fields.ageGroup.value = product.get('ageGroup');
+    productDetail.fields.brand.value = product.get('brand');
+    productDetail.fields.condition.value = product.get('condition');
+    productDetail.fields.category_id.value = product.get('category_id');
+    productDetail.fields.tags.value = product.get('tags');
+    productDetail.fields.image_url.value = product.get('image_url');
+    // product.get('name');
+    // product.get('cost');
+    // product.get('description');
+    // product.get('ageGroup');
+    // product.get('brand');
+    // product.get('condition');
+    // product.get('category_id');
+    // product.get('tags');
 
-    //multi select for tags
-    let selectedTags = await product.related('tags').pluck('id');
+    // //multi select for tags
+    // let selectedTags = await product.related('tags').pluck('id');
+
+    res.render('products/details', {
+        'form': productDetail.toHTML(bootstrapField),
+        'product': product.toJSON(),
+        cloudinaryName: process.env.CLOUDINARY_NAME,
+        cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+        cloudinaryPreset: process.env.CLOUDINARY_UPLOAD_PRESET
+    })
     
-    
-    
-    // res.redirect('/products')
-    res.render('products/details')
 })
 
 
