@@ -2,7 +2,9 @@
 
 {{#block 'content'}}
 <div>
-    <h1>MINIME listings</h1> 
+    <div>
+        <h1>MINIME listings</h1> 
+    </div>
 </div>
 
 {{!-- <a class="btn btn-primary" href="/products/create">Create New</a> --}}
@@ -24,33 +26,36 @@
 </div>
 
 
-
-{{#each products}}
-<div class="card-deck justigy-content-center">
-    <div class = "card" style = "width: 18rem;">
-        <div class = "card-header">
-            {{this.name}}
-        </div>
-        <div>
-            <img src="{{this.image_url}}" class="img-fluid"/>
-        </div>
-        <div class="card-body">
-            {{!-- <p class = "card-text"> {{this.id}}</p> --}}
-            {{!-- <p class = "card-text">{{this.name}}</p> --}}
-            <p class = "card-text"> Price: {{this.cost}}</p>
-            <p class = "card-text"> Description: {{this.description}}</p>
-            <p class = "card-text"> Brand: {{this.brand}}</p>
-            <p class = "card-text"> Tags: {{#each this.tags}}
-                 <span class="badge bg-secondary">{{this.name}}</span>
-                {{/each}}
-                </p>
-            <a class="btn btn-primary btn-sm" href="/products/{{this.id}}/update">Update</a>
-            <a class="btn btn-danger btn-sm" href="/products/{{this.id}}//delete">Delete</a>
-            <a class="btn btn-secondary btn-sm" href="/products/{{this.id}}/details">View Details</a>
+<div class = "container d-flex flex-wrap mt-3">
+    {{#each products}}
+    <div class = "mt-3">
+        <div class="card-deck h-100 justigy-content-center">
+            <div class = "card h-100" style = "width: 22rem;">
+                <div class = "card-header">
+                    <b>{{this.name}}</b>
+                </div>
+                <div class = "mt-3">
+                    <img src="{{this.image_url}}" class="img-fluid"/>
+                </div>
+                <div class="card-body">
+                    <p class = "card-text"><b> Price:</b> {{this.cost}}</p>
+                    <p class = "card-text"> Description: {{this.description}}</p>
+                    <p class = "card-text"> Brand: {{this.brand}}</p>
+                    <p class = "card-text"> Tags: {{#each this.tags}}
+                        <span class="badge bg-secondary">{{this.name}}</span>
+                        {{/each}}
+                        </p>
+                    <a class="btn btn-primary btn-sm" href="/products/{{this.id}}/update">Update</a>
+                    <a class="btn btn-danger btn-sm" href="/products/{{this.id}}//delete">Delete</a>
+                    <a class="btn btn-outline-dark btn-sm" href="/products/{{this.id}}/details">View Details</a>
+                    <a class="btn btn-dark btn-sm" href="/ShoppingCart/{{this.id}}/add">Add to Cart</a>
+                </div>
+            </div>
         </div>
     </div>
+
+    {{/each}}
 </div>
-{{/each}}
 
 {{/block}}
 

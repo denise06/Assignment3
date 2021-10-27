@@ -22,12 +22,11 @@ app.set("view engine", "hbs");
 
 // static folder
 app.use(express.static("public"));
-app.use(express.static("images"));
 
-// Route to display static src images
-app.get("/static", (req, res) => {
-  res.render("static");
-});
+// // Route to display static src images
+// app.get("/static", (req, res) => {
+//   res.render("static");
+// });
 
 // enable forms
 app.use(
@@ -36,7 +35,7 @@ app.use(
   })
 );
 
-// set up sessions
+// Define sessions
 app.use(session({
   'store': new FileStore(),
   'secret': process.env.SESSION_SECRET_KEY,
@@ -44,7 +43,7 @@ app.use(session({
   'saveUninitialized': true
 }))
 
-// set up flash
+// Define flash
 app.use(flash())
 
 app.use(function (req, res, next) {
@@ -84,6 +83,7 @@ const landingRoutes = require('./routes/landing')
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/users')
 const cloudinaryRoutes = require('./routes/cloudinary.js')
+const cartRoutes = require('./routes/shoppingCart')
 
 
 // consult the routes in in landingRoutes object
@@ -92,9 +92,8 @@ async function main() {
    app.use ('/products', productRoutes);
    app.use ('/users', userRoutes);
    app.use('/cloudinary', cloudinaryRoutes);
+   app.use('/shoppingCart', cartRoutes)
 }
-
-
 
 main();
 

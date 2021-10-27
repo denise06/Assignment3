@@ -2,22 +2,24 @@
 
 {{#block 'content'}}
 <h1>Product Detail Page</h1> 
-
 <div class="card-deck justigy-content-center">
     <div class = "card" style = "width: 18rem;">
         <div class = "card-header">
-            {{this.name}}
+            {{this.product.name}}
         </div>
         <div class="card-body">
             {{!-- <p class = "card-text"> {{this.id}}</p> --}}
             {{!-- <p class = "card-text">{{this.name}}</p> --}}
-            <p class = "card-text"> Price: {{this.cost}}</p>
-            <p class = "card-text"> Description: {{this.description}}</p>
-            <p class = "card-text"> Brand: {{this.brand}}</p>
-            <p class = "card-text"> Condition: {{this.condition}}</p>
-            <p class = "card-text"> Tags: {{#each this.tags}}
-                 <span class="badge bg-secondary">{{this.name}}</span>
-                {{/each}}
+            <div>
+                <img src="{{this.product.image_url}}" class="img-fluid"/>
+            </div>
+            <p class = "card-text"> Price: {{this.product.cost}}</p>
+            <p class = "card-text"> Description: {{this.product.description}}</p>
+            <p class = "card-text"> Brand: {{this.product.brand}}</p>
+            <p class = "card-text"> Condition: {{this.product.condition}}</p>
+            <p class = "card-text"> Tags: {{#each this.product.tags}}{{/each}}
+                 <span class="badge bg-secondary">{{this.product.name}}</span>
+                
                 </p>
         </div>
     </div>

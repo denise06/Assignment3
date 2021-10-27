@@ -32,6 +32,18 @@ const User = bookshelf.model('User',{
     tableName: 'users'
 })
 
+// shopping cart DB 
+const CartItem = bookshelf.model('CartItem', {
+    tableName: 'cart_items',
+    product() {
+        return this.belongsTo('Product')
+    },
+    user() {
+        return this.belongsTo('User')
+    }
+
+})
+
 // export out the model
-module.exports = { Product, Category, Tag, User};
+module.exports = { Product, Category, Tag, User, CartItem};
 

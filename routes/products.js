@@ -146,11 +146,11 @@ router.get('/:product_id/update', async (req, res) => {
     const allTags = await dataLayer.getAllTags();
     
     // retrieve the product
-    const productId = req.params.product_id
+    const productId = await req.params.product_id
     
-    const product = dataLayer.getProductByID(productId);
+    const product =  await dataLayer.getProductByID(productId);
 
-    const productForm = createProductForm(allCategories, allTags);
+    let productForm = createProductForm(allCategories, allTags);
 
     productForm.fields.name.value = product.get('name');
     productForm.fields.cost.value = product.get('cost');
@@ -182,8 +182,9 @@ router.get('/:product_id/update', async (req, res) => {
 router.post('/:product_id/update', async (req, res) => {
 
     // fetch the product that we want to update
-    const product = dataLayer.getProductByID(productId);
-    
+    const productId = req.params.product_id
+    const product = await dataLayer.getProductByID(productId);
+
     // fetch all the categories
     const allCategories = await dataLayer.getAllCategories();
 
@@ -256,7 +257,6 @@ router.get('/:product_id/details', async (req, res) => {
     const productId = req.params.product_id
     
     const product = await dataLayer.getProductByID(productId);
-
     const productDetail = createProductForm(allCategories, allTags);
 
     productDetail.fields.name.value = product.get('name');
@@ -268,17 +268,7 @@ router.get('/:product_id/details', async (req, res) => {
     productDetail.fields.category_id.value = product.get('category_id');
     productDetail.fields.tags.value = product.get('tags');
     productDetail.fields.image_url.value = product.get('image_url');
-    // product.get('name');
-    // product.get('cost');
-    // product.get('description');
-    // product.get('ageGroup');
-    // product.get('brand');
-    // product.get('condition');
-    // product.get('category_id');
-    // product.get('tags');
 
-    // //multi select for tags
-    // let selectedTags = await product.related('tags').pluck('id');
 
     res.render('products/details', {
         'form': productDetail.toHTML(bootstrapField),

@@ -15,8 +15,8 @@
     {{!-- add nav bar --}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="images/logo.png" alt="Company logo">
+        <a class="navbar-brand " href="#">
+          <img src="./logo.png" alt="Company logo" width="100" height="24">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,9 +38,14 @@
               <a class="nav-link" href="/products/create">Create</a>
             </li>
           </ul>
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class = "nav-link" href= "/shoppingCart">My Cart</a>
+            </li>
+          </ul>
           <div class="d-flex">
             {{#if user}}
-            <div>Hi, {{user.username}}  ({{user.email}})</div>
+            <div class = "mx-1">Hi, {{user.username}}</div>
             <a href="/users/logout" class="mx-1 btn btn-primary btn-sm">Logout</a>
             {{else}}
             <div>Welcome, guest </div>
@@ -48,6 +53,7 @@
             {{/if}}
           </div>
         </div>
+        
         </div>
       </div>
     </nav>
