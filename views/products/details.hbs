@@ -1,32 +1,35 @@
 {{#extends 'base'}}
 
 {{#block 'content'}}
-<h1>Product Detail Page</h1> 
-<div class="card-deck justigy-content-center">
-    <div class = "card" style = "width: 18rem;">
-        <div class = "card-header">
-            {{this.product.name}}
-        </div>
-        <div class="card-body">
-            {{!-- <p class = "card-text"> {{this.id}}</p> --}}
-            {{!-- <p class = "card-text">{{this.name}}</p> --}}
-            <div>
-                <img src="{{this.product.image_url}}" class="img-fluid"/>
+<div class = "container mt-3">
+    <h3>Product Detail Page</h3> 
+    <div class="col">
+        <div class = "card flex">
+            <div class="card-body">
+                <div class = "row">
+                    <div class="col-lg-6 mt-4 mb-4 text-center">
+                        <img src="{{this.product.image_url}}" class="img-fluid"/>
+                    </div>
+                    <div class="col-lg-6 text-justify">
+                        <h3 class = "card-title"> <b></b>Price: {{this.product.name}}</h3>
+                        <p class = "card-text"> <b>Description:</b> {{this.product.description}}</p>
+                        <p class = "card-text"> <b>Brand: </b>{{this.product.brand}}</p>
+                        <p class = "card-text"> <b>Age Group:</b> {{this.product.ageGroup}}</p>
+                        <p class = "card-text"> <b>Condition:</b> {{this.product.condition}}</p>
+                        <p class = "card-text"> <b>Price:</b> {{this.product.cost}}</p>
+                        <p class = "card-text"> <b>Tags: </b>{{#each this.product.tags}}
+                            <span class="badge bg-secondary">{{this.name}}</span>
+                            {{/each}}
+                        </p>
+                        <a class="btn btn-dark btn-block" href="/ShoppingCart/{{this.product.id}}/add">Add to Cart</a>
+                    </div>
+                </div>
             </div>
-            <p class = "card-text"> Price: {{this.product.cost}}</p>
-            <p class = "card-text"> Description: {{this.product.description}}</p>
-            <p class = "card-text"> Brand: {{this.product.brand}}</p>
-            <p class = "card-text"> Condition: {{this.product.condition}}</p>
-            <p class = "card-text"> Tags: {{#each this.product.tags}}{{/each}}
-                 <span class="badge bg-secondary">{{this.product.name}}</span>
-                
-                </p>
         </div>
     </div>
+    <a class="btn btn-success btn-block" href="/products">Back to Shop Listings</a>
 </div>
-<div>
-    <a class="btn btn-success btn-sm" href="/products">Back to Shop Listings</a>
-</div>
+
 
 
 {{/block}}
