@@ -6,7 +6,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const FileStore = require('session-file-store')(session);
 const csrf = require('csurf');
-
+const bodyParser = require('body-parser');
 
 // setup wax-on
 wax.on(hbs.handlebars);
@@ -53,10 +53,25 @@ app.use(function (req, res, next) {
 });
 
 // enable CSRF & unject csfr token to all hbs files
-app.use(csrf());
-
+// app.use(csrf());
+const csurfInstance = csrf();
 app.use(function(req,res,next){
-  res.locals.csrfToken = req.csrfToken();
+  // we are exlcuding csrf for /checkout/process_payment and any routes which path 
+  // begins with '/api/'
+  if (req.url == "/checkout/process_payment" || req.url.slice(0,5) == '/api/') {
+      return next();
+  } else {
+      // manually called the csurfInstance to 
+      // check the request
+      csurfInstance(req,res,next)
+  }
+})
+
+// middleware to inject the csrf token into all hbs files
+app.use(function(req, res, next){
+  if (req.csrfToken) {
+      res.locals.csrfToken = req.csrfToken();
+  }    
   next();
 })
 

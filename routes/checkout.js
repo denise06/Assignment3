@@ -3,6 +3,7 @@ const router = express.Router();
 
 const CartServices = require('../services/cart_services')
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const bodyParser = require('body-parser');
 
 // Define checkout route
 router.get('/', async (req, res) => {
@@ -37,7 +38,7 @@ router.get('/', async (req, res) => {
     const payment = {
         payment_method_types: ['card'],
         line_items: lineItems,
-        'success_url': 'http://www.google.com',
+        'success_url': 'https://3000-fuchsia-rodent-mn0r24w6.ws-us18.gitpod.io/checkout/success',
         'cancel_url': 'http://www.yahoo.com',
         // success_url: 'process.env.STRIPE_SUCCESS_URL' + '?sessionId={CHECKOUT_SESSION_ID}',
         // cancel_url: 'process.env.STRIPE_ERROR_URL',
@@ -62,6 +63,26 @@ router.get('/cancelled', function(req,res){
     res.render('checkout/cancelled')
 })
 
+// Strip call webhook to process payment
+router.post('/process_payment', bodyParser.raw({"type":"application/json"}), function(req,res){
+    let payload = req.body;
+    let endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
+    let sigHeader = req.headers['stripe-signature'];
+    let event;
+    try {
+        event = Stripe.webhooks.constructEvent(payload, sigHeader, endpointSecret);
+    } catch(e) {
+        res.send({
+            'error':e.message
+        })
+        console.log(e.message);
+    }
+    let stripeSession = event.data.object;
+    if (event.type == 'checkout.session.completed') {
+        console.log(stripeSession);
+    }
 
+    res.send({'recieved': true})
+})
 module.exports = router;
 
