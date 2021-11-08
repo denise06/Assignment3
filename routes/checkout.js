@@ -43,7 +43,8 @@ router.get('/', async (req, res) => {
         // success_url: 'process.env.STRIPE_SUCCESS_URL' + '?sessionId={CHECKOUT_SESSION_ID}',
         // cancel_url: 'process.env.STRIPE_ERROR_URL',
         metadata: {
-            'orders': metaData
+            'orders': metaData,
+            'user_id': req.session.user.id
         }
     }
 
