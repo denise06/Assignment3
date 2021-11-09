@@ -1,8 +1,60 @@
 {{#extends 'base'}}
 
 {{#block 'content'}}
-<h1>Welcome!</h1>
-<h2>MiniMe, the one stop place to buy and sell baby products</h2> 
+{{!-- <h2>Welcome to MiniMe!</h2>
+<h2>The one stop place to buy and sell baby products</h2>  --}}
+
+<!-- Buying Toys-->
+<div style="background-color: white;">
+    <div class="container-fluid">
+        <div class="row pt-3 pb-5">
+            <div class="col-md-8 offset-md-2" style="padding-top: 2rem;">
+                <h2 class="font-weight-bold">Buy new/pre owned baby products at an affordable price! </h2>
+                <p style="font-size: 20px">Afraid to spend too much on toys that will only last 1-2 years? Grab them at MiniMe for 20-80% off retail price</p>
+                <div class="row mt-5">
+                    {{!-- <div class="col-md-12 col-lg-4">
+                        <figure class="figure">
+                            <img src="/boygirl.jpeg"
+                                class="figure-img img-fluid rounded" alt="Boy girl shoes">
+                        </figure>
+                    </div> --}}
+                  
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img class="d-block w-100" src="/boygirl.jpeg" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                            <img class="d-block w-100" src="/greyoutfit.jpeg" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                            <img class="d-block w-100" src="..." alt="Third slide">
+                            </div>
+                        </div>
+                        </div>
+
+                    <div class="col-md-12 col-lg-8 montserrat">
+                        <div class="row mx-1 align-items-center rounded justify-content-center text-center"
+                            style="height:3rem; font-size: large;">
+                            Branded products at discounted price
+                        </div>
+                        <div class="row mx-1 align-items-center rounded justify-content-center text-center"
+                            style="height:3rem; font-size: large;">
+                            Reduce wastetage and spread the LOVE
+                        </div>
+                        <div class="row mx-1 align-items-center rounded justify-content-center text-center"
+                            style="height:3rem; font-size: large;">
+                            Quality assured at affordable prices </div>
+                        <div class="row align-items-center justify-content-center" style="height:5rem;">
+                            <a class="btn btn-outline-secondary" href="/products" role="button">Shop Now!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{!-- trade in old toys --}}
 <div style="background-color: #e2edf7;">
     <div class="container-fluid">
@@ -24,18 +76,18 @@
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-box-open"></i></div>
                             <h4>Book Pickup Slots</h4>
-                            <p class = "text-justify">Upon email confirmation, head to any singpost to drop off your items .</p>
+                            <p class = "text-justify">Upon email confirmation, head to any singpost to drop off your items or book a timeslot to schedule a pick up with our Ninja Van courier.</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
                         <div class="icon-box">
                             <div class="icon"><i class="fas fa-comment-dollar"></i></div>
                             <h4>Get Paid</h4>
-                            <p>Payment will be done via bank transfer once item is sold on our platform </p>
+                            <p>Payment will be made via bank transfer once item is sold on our platform. </p>
                         </div>
                     </div>
                 </div>
-                <div class="mt-5 d-flex justify-content-center"><a class="btn btn-primary" href=""
+                <div class="mt-5 d-flex justify-content-center"><a class="btn btn-secondary" href="/tradein"
                         role="button">Trade in Now!</a></div>
 
             </div>
