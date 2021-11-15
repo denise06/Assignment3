@@ -104,7 +104,7 @@ const createRegistrationForm = () => {
             'required': true,
             'errorAfterField': true,
         }),
-        'email': fields.string({
+        'email': fields.email({
             'required': true,
             'errorAfterField': true
         }),
