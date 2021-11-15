@@ -7,7 +7,7 @@ const CartServices = require('../services/cart_services');
 // adding item to shopping cart
 router.get('/:product_id/add', async (req,res)=>{
     let cart = new CartServices(req.session.user.id);
-    cart.addToCart(req.params.product_id, 1);
+    await cart.addToCart(req.params.product_id, 1);
     req.flash('success_messages', "It's in your cart!")
     res.redirect('/shoppingCart')
 })

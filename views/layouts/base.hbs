@@ -32,7 +32,11 @@
               <a class="nav-link" href="/about-us">About Us</a>
             </li>
             <li class="nav-item">
+              {{#if user}}
+              <a class="nav-link" href="/products">All Listings</a>
+              {{else}}
               <a class="nav-link" href="/products">Shop Now</a>
+              {{/if}}
             </li>
             <li class="nav-item">
               {{#if user}}
@@ -42,7 +46,9 @@
           </ul>
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
+              {{#if user}}
               <a class = "nav-link" href= "/shoppingCart">My Cart</a>
+              {{/if}}
             </li>
           </ul>
           <div class="d-flex">

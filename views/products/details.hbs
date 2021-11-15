@@ -21,7 +21,9 @@
                             <span class="badge bg-secondary">{{this.name}}</span>
                             {{/each}}
                         </p>
+                        {{#if user}}
                         <a class="btn btn-dark btn-block" href="/ShoppingCart/{{this.product.id}}/add">Add to Cart</a>
+                        {{/if}}
                     </div>
                 </div>
             </div>
