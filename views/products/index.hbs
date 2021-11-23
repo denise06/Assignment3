@@ -45,9 +45,7 @@
                         <span class="badge bg-secondary">{{this.name}}</span>
                         {{/each}}
                         </p>
-                    <p>{{user.username}}</p>
-                    <p>ROLE: {{../user.role}}</p>
-                    
+                   
                     {{!-- super seller sees all buttons --}}
                     {{#ifEquals ../user.role "superaccount"}}
                     <a class="btn btn-primary btn-sm" href="/products/{{this.id}}/update">Update</a>
