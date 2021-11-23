@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     for (let item of items) {
         const lineItem = {
             'name': item.related('product').get('name'),
-            'amount': item.related('product').get('cost'),
+            'amount': item.related('product').get('cost')*100,
             'quantity': item.get('quantity'),
             'currency': 'SGD'
         }
