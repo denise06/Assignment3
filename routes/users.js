@@ -29,7 +29,8 @@ router.post('/register', (req, res) => {
             const user = new User({
                 'username': form.data.username,
                 'password': getHashedPassword(form.data.password),
-                'email': form.data.email
+                'email': form.data.email,
+                'role': form.data.role
             });
             await user.save();
             req.flash("success_messages", "User signed up successfully!");
@@ -76,7 +77,8 @@ router.post('/login', (req, res) => {
                 req.session.user = {
                     'id': user.get('id'),
                     'username': user.get('username'),
-                    'email': user.get('email')
+                    'email': user.get('email'),
+                    'role': user.get('role')
                 }
                 req.flash('success_messages', "Welcome back, " + user.get('username'));
                 res.redirect('/users/profile')

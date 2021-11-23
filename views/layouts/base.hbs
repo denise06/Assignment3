@@ -32,16 +32,19 @@
               <a class="nav-link" href="/about-us">About Us</a>
             </li>
             <li class="nav-item">
-              {{#if user}}
-              <a class="nav-link" href="/products">All Listings</a>
-              {{else}}
+              {{#ifEquals user.role "buyer"}}
               <a class="nav-link" href="/products">Shop Now</a>
-              {{/if}}
+              {{else}}
+              <a class="nav-link" href="/products">All Listings</a>
+              {{/ifEquals}}
             </li>
             <li class="nav-item">
-              {{#if user}}
+              {{#ifEquals user.role "superaccount"}}
               <a class="nav-link" href="/products/create">Create</a>
-              {{/if}}
+              {{/ifEquals}}
+              {{#ifEquals user.role "seller"}}
+              <a class="nav-link" href="/products/create">Create</a>
+              {{/ifEquals}}
             </li>
           </ul>
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">

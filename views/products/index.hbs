@@ -46,11 +46,23 @@
                         {{/each}}
                         </p>
                     <p>{{user.username}}</p>
-                    {{#if ../user}}
+                    <p>ROLE: {{../user.role}}</p>
+                    
+                    {{!-- super seller sees all buttons --}}
+                    {{#ifEquals ../user.role "superaccount"}}
                     <a class="btn btn-primary btn-sm" href="/products/{{this.id}}/update">Update</a>
                     <a class="btn btn-danger btn-sm" href="/products/{{this.id}}//delete">Delete</a>
                     <a class="btn btn-dark btn-sm" href="/ShoppingCart/{{this.id}}/add">Add to Cart</a>
-                    {{/if}}
+                    {{/ifEquals}}
+                    {{!-- what seller sees --}}
+                    {{#ifEquals ../user.role "seller"}}
+                    <a class="btn btn-primary btn-sm" href="/products/{{this.id}}/update">Update</a>
+                    <a class="btn btn-danger btn-sm" href="/products/{{this.id}}//delete">Delete</a>
+                    {{!-- what buyers see --}}
+                    {{/ifEquals}}
+                    {{#ifEquals ../user.role "buyer"}}
+                    <a class="btn btn-dark btn-sm" href="/ShoppingCart/{{this.id}}/add">Add to Cart</a>
+                    {{/ifEquals}}
                     <a class="btn btn-outline-dark btn-sm" href="/products/{{this.id}}/details">View Details</a>
                     
                 </div>
