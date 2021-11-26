@@ -214,5 +214,18 @@ const SearchOrderForm = function () {
         }),
     })
 }
-module.exports = { createProductForm, createRegistrationForm, createLoginForm, createSearchForm ,bootstrapField, SearchOrderForm };
+
+// order status update form
+const orderStatusForm = () => {
+    return forms.create({
+        'order_status': fields.string({
+            required: true,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            }
+        }),
+    })
+};
+module.exports = { createProductForm, createRegistrationForm, createLoginForm, createSearchForm ,bootstrapField, SearchOrderForm, orderStatusForm };
 

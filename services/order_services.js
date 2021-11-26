@@ -1,5 +1,5 @@
 const {
-    createOrder, getAllOrders
+    createOrder
 } = require('../dal/order')
 
 const {
@@ -11,17 +11,12 @@ class OrderServices {
     constructor(stripeSession) {
         this.stripeSession = stripeSession;
     }
-    // adding items to cart, up quanity if item already exist
+    // adding orders paid to order table
     async processOrder() {
-        let {id,metadata,amount_total} = this.stripeSession
-        await createOrder(id,parseInt(metadata.user_id), metadata.orders, amount_total);
+        let {id,metadata,amount_total,payment_status} = this.stripeSession
+        await createOrder(id,parseInt(metadata.user_id), metadata.orders, amount_total, payment_status);
         
     }
-      // get all orders
-      async getCart() {
-        return await getAllOrders();
-    }
-
 }
 
 module.exports = OrderServices;

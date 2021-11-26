@@ -33,6 +33,10 @@ exports.up = function(db) {
      'password':{
        'type':'string',
        'length':80
+     },
+     'role':{
+        'type':'string',
+        'length':80
      }
   })
 };
