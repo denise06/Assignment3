@@ -34,16 +34,30 @@ _Advance (current version will not have any development for this level)_
 
 ## UI/UX
 
+The landing page gives users a quick overview of what Minime is and what are the services available, be it trading in, or purchasing safe products for their lvoed ones. 
+The colour tone for the website is more of a neutral, greyish/baby blue scheme, to potray a cool and comforting environment. Call to action buttons changes colour once cursor mouse over them. 
 
-The navigation bar is responsive for small, medium and large screens based on Bootstrap's breakpoints. 
+**Non Registered users**
+The use of cards with images when viewing all the orders gives users a quick overview of all the listings on minime. 
+Description on the cards are kept to the minimal and users are able to see more product details by clicking on the "View Details" button. 
+Non registered users who chanced upon the website is able to see the product listings and view the details, however, they are unable to see the "Add to cart" button to make any purchases. 
 
-Design was kept to a simple black and white with blue and red action buttons to clearly display the actions that sellers can take. Listings are displayed using a simple table format which gives it a clean look. 
+**Registered Buyers**
+Quick add to cart buttons are only available on the overview page for users that have logged in and registered with us as buyers. The "Add to cart" button is also available to buyers in the view details page to ensure a smooth buyer experience. 
+Buyers no longer have to worry that the toys/apparels are unsafe for their kids as Minime will do the offline verification of all the products before listing them. Items are also tagged with the safety guarentees and brands to gain the trust of the parents 
+The use of Stripe checkout allows a seamless and cashless experience with the intiutive user interface. 
+Once payment is made, a successful payment page is displayed to confirm buyer's order
 
-Adding new items can be found at the top navigation panel. Upon clicking, the form displays a clear and intuitive inpur format with the use of checkboxes, drop downs, text input and radio buttons. 
+**Registered Sellers**
+Minime is also user friendly for sellers, who are mainly the Minime employees helping to list products after they have verified the product safety features. 
+Sellers are able to create/update/delete item listings which includes features like image upload. The form interface is simple and straight forward with ony the crucial fields validation. 
+Sellers are unable to make purchases, hence will not be able to see the add to cart button. 
+All orders page is also available to display crucial information to sellers to aid with the fulfilment of the orders. 
+Quick search functionality is also made available so sellers and search a particular order quickly based on the Order ID
+They are able to update the order status. Orders are only generated after payment is successfully done by buyers. 
 
-The main highlight of the App is the 3 quick search inputs which helps to filter the long item listings based on the Shop Name, Item Name, Item Description. This client site serching greatly enhances the buyer's UX as they navigate their way through the plethora of listings. This greatly reduces the need for buyers to search on numerous instagram pages or websites to find the contact info of a home bakers. 
-
-To sellers, they no longer need to fret about the cost of curating their own personal business website to showcase their talents. With the use of this one stop platform, Paradise Bakers helps them publicise and bring them closer to interested buyers. Paradise Bakers also allows sellers to see what their close competitors are doing, providing a level playing field. 
+**Superadmin**
+They have the features of both a buyer and a seller. 
 
 
 
@@ -57,35 +71,11 @@ Git Pod
 
 
 ## Technologies
-1. Vue
-2. MongoDB
+1. Javascript
+2. SQL
 3. Express
 4. Bootstrap
-5. Javascript
-
-## Features
-This site orientate around the use of Vue for the front end development and express to create the end points and update the database on MongoDB
-
-My Design of the site:
-- Simple and quick 
-- 3 different filters to allow buyers to quickly filter through the listings
-   - Item Name
-   - Item Descriptions
-   - Shop Name
-
-- Seller login button changes colour to indicate that it's a seller that's viewing the page
-- Adding of new items action button can be found on the navigation panel
-- Editting of each item will display the current item details in the same form format to allow sellers to quickly update 
-
-
-_Limitations: 
-
-_Delelte button currently not working_
-_No additional view button to see a longer item details, all in one page_
-
-_Features Left to Implement_
-_-Allow sellers to delete the item  _
-_- Action button (add/delete) only appears when the "Seller" button is clicked
+5. 
 
 ## Testing
 Manual Testing is done to ensure that the all functions are functional.
@@ -93,7 +83,7 @@ Manual Testing is done to ensure that the all functions are functional.
 
 *No* | *Steps* | *Expected Results* | *Observations*
 --- | --- | --- | ---
-1 | `When App is loaded ` | `All item listing can be displayed, showing the item details in a tabluar format` | **Pass** 
+1 | `When webiste is loaded ` | `All item listing can be displayed, showing the item details in a tabluar format` | **Pass** 
 2 | `Click on 'Add new listings' button` | `Form showing the input fields (Shop Name, Item Name, Item Description, category, Bundle deal available, Contact information, Delivery method drop down, category checkboxes), some with default fields filled in` | **Pass** 
 3 | `Enter mock item data and click "Add" button` | `Return back to the All listing page with newly added item appearing at the bottom of the table. A green alert sign of "A new item has been added` will display at the top of the home page | **Pass** 
 4 | `Click on the Edit button` | `Original item details are prefilled in the form` | **Pass** 
