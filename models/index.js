@@ -29,21 +29,26 @@ const Tag = bookshelf.model('Tag',{
 
 // user DB
 const User = bookshelf.model('User',{
-    tableName: 'users'
+    tableName: 'users',
+    orders(){
+        return this.hasMany('Order')
+    }
 })
 
-// shopping cart DB 
+// shopping cart items DB 
 const CartItem = bookshelf.model('CartItem', {
     tableName: 'cart_items',
     product() {
         return this.belongsTo('Product')
-    },
-    user() {
-        return this.belongsTo('User')
     }
 
 })
 
+// orders DB
+const Order = bookshelf.model('Order', {
+    tableName:'orders',
+});
+
 // export out the model
-module.exports = { Product, Category, Tag, User, CartItem};
+module.exports = { Product, Category, Tag, User, CartItem, Order};
 

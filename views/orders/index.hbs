@@ -1,0 +1,58 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<div>
+    <div>
+        <h3>All orders</h3> 
+    </div>
+</div>
+
+
+{{!-- search engine panel --}}
+<div class = "card">
+    <div class = "card-header pb-1 bg-white"> 
+        <h5>Quick Search</h5>
+    </div>
+    <div class = "card-body">
+        <form method="GET">
+            {{{form}}}
+            <div>
+                <input type="submit" class="btn btn-dark btn-block mb-3 mt-3" value="Search"/>
+                <a class="btn btn-outline-dark" href="/orders">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class = "container d-flex flex-wrap mt-3">
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Order SN</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Order Total </th>
+                <th scope="col">User ID </th>
+                <th scope="col">Order Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {{#each orders}}
+                    <td>{{this.order_id}}</td>
+                    <td>{{this.id}}</td>
+                    <td>{{this.total_amount}}</td>
+                    <td>{{this.users_id}}</td>
+                    <td>{{this.order_details}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{/block}}
+
+{{/extends}}
+

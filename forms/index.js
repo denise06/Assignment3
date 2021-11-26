@@ -184,5 +184,35 @@ const createSearchForm = function (categories, tags) {
     })
 }
 
-module.exports = { createProductForm, createRegistrationForm, createLoginForm, createSearchForm ,bootstrapField, };
+// orders search engine
+const SearchOrderForm = function () {
+    return forms.create({
+        "order_id": fields.string({
+            required: false,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            }
+        }),
+        "max_amount": fields.string({
+            required: false,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            },
+            'validators': [validators.integer()]
+
+        }),       
+        "user_id": fields.string({
+            required: false,
+            errorAfterField: true,
+            cssClasses: {
+                label: ['form-label']
+            },
+            // 'validators': [validators.integer()]
+
+        }),
+    })
+}
+module.exports = { createProductForm, createRegistrationForm, createLoginForm, createSearchForm ,bootstrapField, SearchOrderForm };
 

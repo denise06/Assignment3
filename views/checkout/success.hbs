@@ -1,9 +1,21 @@
 {{#extends 'base'}}
 
 {{#block 'content'}}
-<h1>
-    Payment succeed!
-</h1>
+<div class = "card">
+    <div style="border-radius:200px; height:200px; width:200px; background:#ABEBC6; margin:0 auto;">
+        <i class="checkmark" style="font-size: 150px">✓</i>
+      </div>
+    <div style ="text-align: center;">
+        <h1>
+            Order Confirmed! 
+        </h1>
+        <p>Your order is confirmed. You'll recieve an order confirmation via email shortly with the expected delivery date</p>
+
+        <div>
+            <a href="/products" class="btn btn-dark">Continue Shopping</a>
+        </div>
+    </div>
+</div>
 {{/block}}
 
 {{/extends}}
