@@ -63,10 +63,10 @@ They have the features of both a buyer and a seller.
 
 ## Demo
 
-A live demo can be found here https://csb-q9s1o.netlify.app/
+A live demo can be found here 
 Git Pod
 
-![Overview of Project in different devices](images/Demo.png)
+![Overview of Project in different devices](public/Minime Demo.png)
 
 
 
@@ -80,21 +80,31 @@ Git Pod
 ## Testing
 Manual Testing is done to ensure that the all functions are functional.
 
+**Test accounts:**
+Buyer account: minimebuyer@g.com, PW: minime123!
+Seller account: minimeseller@g.com, PW: minime123!
+Super account: minimesuper@g.com, PW: minime123!
 
 *No* | *Steps* | *Expected Results* | *Observations*
 --- | --- | --- | ---
-1 | `When webiste is loaded ` | `All item listing can be displayed, showing the item details in a tabluar format` | **Pass** 
-2 | `Click on 'Add new listings' button` | `Form showing the input fields (Shop Name, Item Name, Item Description, category, Bundle deal available, Contact information, Delivery method drop down, category checkboxes), some with default fields filled in` | **Pass** 
-3 | `Enter mock item data and click "Add" button` | `Return back to the All listing page with newly added item appearing at the bottom of the table. A green alert sign of "A new item has been added` will display at the top of the home page | **Pass** 
-4 | `Click on the Edit button` | `Original item details are prefilled in the form` | **Pass** 
-5 | `Update the Item name/delivery method/category and click "Update" button` | `Return back to All listing page with item being updated with latest information` | **Pass** 
-6 | `Click on Delete button` | `Alert showing "An item has been deleted, please refresh the page` | **Pass** 
-7 | `Click refresh button to reload app` | `Item is removed from the All listing page` | **Pass** 
-8 | `Click on the seller button` | `Colour changed from yellow to red` | **Pass** 
-9 | `Enter P in the Item Name search box ` | `All listings are filtered to show items name with P in it (not case sensitive). The item count is also updated according to the number of filtered items output` | **Pass** 
-10 | `Enter P in the Item Description search box ` | `All listings are filtered to show items descriptions with P in it (not case sensitive). The item count is also updated according to the number of filtered items output` | **Pass** 
-10 | `Enter P in the Shop Name search box ` | `All listings are filtered to show items with Shop Name containing P in it (not case sensitive). The item count is also updated according to the number of filtered items output` | **Pass** 
-
+1 | `When webiste is loaded ` | `Minime homepage is shown with a carousell displaying the items in Minime and trade in details at the bottom ` | **Pass** 
+2 | `Click on 'Trade in Now!' button` | `Redirected to Tradie in page with instructions on how to list products with us` | **Pass** 
+3 | `Click on About Us on nav bar` | `Able to see the about page with Registration link and Trade in link` will display at the top of the home page | **Pass** 
+4 | `At About page, click on Register with us link` | `Redirected to Register page with Username, Email, Role, Password and Confirm Password fields in the form` | **Pass** 
+5 | `Fill in details and click submit` | `User account registered and redirected to login page` | **Pass** 
+6 | `Enter email and password and click submit button` | `User login and user profile is displayed with username, email and role` | **Pass** 
+7 | `Click sign out button on top right` | `Goodbye and redirected to login page` | **Pass** 
+8 | `Login with super account: email: minimesuper, password: minime123!` | `User login and able to see All Listings, Create and All Orders on the navigation panel` | **Pass** 
+9 | `Click on All Listings on navigation bar` | `Able to view quick search and all listings in card forms displaying all buttons (Update, Delete, Add to Cart, View Details` | **Pass** 
+10 | `Test out the buttons Update, delete and view details` | `Able to update product details including images used. View details page will show the age group, condition, price and an "Add to Cart" button` | **Pass** 
+11 | `Test the Add to cart button on both Product details page and All listings page ` | `User is redirected to "My Shopping Cart" page ` | **Pass** 
+12 | `Change the quantity and click update quantity. Add another item and click remove to add and remove from cart ` | `Quantity of item is updated and item is removed when remove button is clicked` | **Pass** 
+13 | `Click checkout button, fill in 42424242424242 as the testing card account and the expiry date of > current date, CVC 121, click pay ` | `Redirected to stripe checkout page with the total amount displayed on the left with all the order items and respective prices. After entereing details, user is able to make payment and redirected to successful page` | **Pass** 
+14 | `Click on All orders tab to view all the orders placed by different users` | `Able to see a quick search panel on orderid, maximum order amount, userid. A table showing all the orders with order SN, order ID, order total, user id, order details, order status, and 2 actions, update status and delete order` | **Pass** 
+15 | `Enter filter criteria, update status from paid to completed, delete order` | `Order table is filtered accurately based on filter criteria. User able to update status with old status default filled in in the order status update page. Able to delete order` | **Pass** 
+16 | `log out of super account and login as a buyer role ` | `User is only able to see "Home, About Us, My Cart All Listings and under All listings page, only able to Add to Cart and view details ` | **Pass** 
+17 | `log out of buyer account and login as seller role ` | `User is able to see "Home, About Us, All Listings, Create, All Orders in the nav bar. There should not be My cart in nav bar. In All listings, only able to creation, update, delete, not able to add to cart` | **Pass** 
+11 | `Repeat above steps in PC/Mobile view` | `UI is optimised for both PC and mobile for all pages, functionalities are retained for both` | **Pass** 
 
 ## Deployment
 
@@ -107,17 +117,19 @@ Vue App Link: https://csb-q9s1o.netlify.app/
 
 ## Credits
 
-
+Code institues instructor Paul Chor for development guidance
+Teaching assistant Shaun for helping with troubleshooting of bugs
+Ecommerce websites such as Shopee as website inspiration
  
 Designs, layout and functions are original
 
-Media
-- Dropdown were taken from https://pro.fontawesome.com/releases/v5.10.0/css/all.css, a font/icon image library
-- Home bakers logo icons were taken from https://flaticon.com
 
 
 
 Acknowledgements
 1. Use of Font Awesome full icons
-2. Use of Flaticons for homebaker logo
+2. Ecommerce listing image files are taken from Google images & flaticons
+3. Code base is adapted from Paul Chor's coding lessons and tutorial
+
+
 
