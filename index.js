@@ -22,11 +22,7 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
 hbs.registerHelper('parse',function(String){
   return String.replace(/{/g,'').replace(/}/g,'').replace(/\[/g,'').replace(/\]/g,'')
   .replace(/"/g,'').split(',')
-})
-<<<<<<< HEAD
-
-=======
->>>>>>> 7de37c11ef44738efbd5a399fb3cdcf9491f086a
+});
 
 // create an instance of express app
 let app = express(); 
