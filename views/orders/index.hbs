@@ -40,39 +40,21 @@
             </tr>
         </thead>
         <tbody>
-<<<<<<< HEAD
             {{#each orders}}
                 <tr>
                         <td>{{this.order_id}}</td>
                         <td>{{this.id}}</td>
                         <td>{{this.total_amount}}</td>
                         <td>{{this.users_id}}</td>
-                        <td>
+                        {{!-- <td>
                             {{#each (parse this.order_details)}}
                                 <p>{{this}}</p>
                             {{/each}}
-                        </td>
+                        </td> --}}
                         <td>{{this.order_status}}</td>
                         <td><a class="btn btn-primary btn-sm" href="/orders/{{this.order_id}}/update">Update status</a></td>
                         <td><a class="btn btn-danger btn-sm" href="/orders/{{this.order_id}}/delete">Delete order</a></td>
                 </tr>
-=======
-            <tr>
-                {{#each orders}}
-                    <td>{{this.order_id}}</td>
-                    <td>{{this.id}}</td>
-                    <td>{{this.total_amount}}</td>
-                    <td>{{this.users_id}}</td>
-                    <td>
-                        {{#each (parse this.order_details)}}
-                            <p>{{this}}</p>
-                        {{/each}}
-                    </td>
-                    <td>{{this.order_status}}</td>
-                    <td><a class="btn btn-primary btn-sm" href="/orders/{{this.order_id}}/update">Update status</a></td>
-                    <td><a class="btn btn-danger btn-sm" href="/orders/{{this.order_id}}/delete">Delete order</a></td>
-            </tr>
->>>>>>> 7de37c11ef44738efbd5a399fb3cdcf9491f086a
             {{/each}}
         </tbody>
     </table>
