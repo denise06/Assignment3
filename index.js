@@ -10,6 +10,8 @@ const bodyParser = require('body-parser');
 
 // setup wax-on
 wax.on(hbs.handlebars);
+
+// Other hbs helpers
 wax.setLayoutPath("./views/layouts");
 
 //Other HBS helpers
@@ -21,7 +23,10 @@ hbs.registerHelper('parse',function(String){
   return String.replace(/{/g,'').replace(/}/g,'').replace(/\[/g,'').replace(/\]/g,'')
   .replace(/"/g,'').split(',')
 })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7de37c11ef44738efbd5a399fb3cdcf9491f086a
 
 // create an instance of express app
 let app = express(); 
@@ -32,10 +37,6 @@ app.set("view engine", "hbs");
 // static folder
 app.use(express.static("public"));
 
-// // Route to display static src images
-// app.get("/static", (req, res) => {
-//   res.render("static");
-// });
 
 // enable forms
 app.use(
