@@ -4,7 +4,8 @@ const {
 
 const {
     Order
-} = require('../models')
+} = require('../models');
+const CartServices = require('./cart_services');
 
 
 class OrderServices {
@@ -15,7 +16,6 @@ class OrderServices {
     async processOrder() {
         let {id,metadata,amount_total,payment_status} = this.stripeSession
         await createOrder(id,parseInt(metadata.user_id), metadata.orders, amount_total, payment_status);
-        
     }
 }
 

@@ -7,6 +7,7 @@ const dataLayer = require('../dal/order')
 // displaying all orders based on search criteria
 router.get('/', async function (req, res) {
     let orders = await Order.collection().fetch();
+    
     let searchForm = SearchOrderForm(orders);
     let q = Order.collection();  
 
@@ -23,6 +24,10 @@ router.get('/', async function (req, res) {
                 q.where('users_id', '=', form.data.user_id);
             }
             let orders = await q.fetch();
+            orders = orders.forEach(orders=>{
+                orders.attributes.order_details= JSON.parse(orders.attributes.order_details)
+                console.log(Array.isArray(orders.attributes.order_details))
+            })
             res.render('orders/index',{
                 'form': form.toHTML(bootstrapField),
                 'orders': orders.toJSON()
@@ -31,7 +36,6 @@ router.get('/', async function (req, res) {
         },
         'empty': async function (form) {
             let orders = await Order.collection().fetch();
-        
             res.render('orders/index',{
                 'form': form.toHTML(bootstrapField),
                 'orders': orders.toJSON()

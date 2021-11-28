@@ -11,13 +11,20 @@ const bodyParser = require('body-parser');
 // setup wax-on
 wax.on(hbs.handlebars);
 wax.setLayoutPath("./views/layouts");
+
+//Other HBS helpers
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
+hbs.registerHelper('parse',function(String){
+  return String.replace(/{/g,'').replace(/}/g,'').replace(/\[/g,'').replace(/\]/g,'')
+  .replace(/"/g,'').split(',')
+})
+
 
 // create an instance of express app
-let app = express();
+let app = express(); 
 
 // set the view engine
 app.set("view engine", "hbs");
