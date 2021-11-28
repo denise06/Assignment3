@@ -19,15 +19,15 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
-hbs.registerHelper('parse',function(String){
-  return String.replace(/{/g,'').replace(/}/g,'').replace(/[/g,'').replace(/]/g,'')
-  .replace(/"/g,'').split(',')
-});
-
 // hbs.registerHelper('parse',function(String){
-//   return String.replace(/{/g,'').replace(/}/g,'')
+//   return String.replace(/{/g,'').replace(/}/g,'').replace(/[/g,'').replace(/]/g,'')
 //   .replace(/"/g,'').split(',')
 // });
+
+hbs.registerHelper('parse',function(String){
+  return String.replace(/{/g,'').replace(/}/g,'')
+  .replace(/"/g,'').split(',')
+});
 
 // create an instance of express app
 let app = express(); 
