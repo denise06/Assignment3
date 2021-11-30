@@ -111,8 +111,9 @@ Super account: minimesuper@g.com, PW: minime123!
 Backend API is deployed using Heroku while front end APP is deployed using netlify 
 The deployed site will update automatically update the database. 
 
-Heroku link: https://dcyx-tgc-assignment2.herokuapp.com/item_record![image](https://user-images.githubusercontent.com/43426431/134777033-01c46a98-f980-42f6-9db5-be6e87f58d71.png)
-Vue App Link: https://csb-q9s1o.netlify.app/
+Heroku link: https://dcyx-minime.herokuapp.com/
+![image](https://user-images.githubusercontent.com/43426431/144067813-528a4ccc-e1ad-43fe-9764-206fc2ec3798.png)
+
 
 
 ## Credits
